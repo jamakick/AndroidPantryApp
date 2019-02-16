@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="categories">
+        <item>Dairy</item>
+        <item>Wheat</item>
+        <item>Poultry</item>
+        <item>Meat</item>
+        <item>Fish</item>
+        <item>Vegetables</item>
+        <item>Fruit</item>
+        <item>Frozen</item>
+        <item>Refrigerated</item>
+    </string-array>
+</resources>

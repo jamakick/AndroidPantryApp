@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="mealCats">
+        <item>Lunch</item>
+        <item>Breakfast</item>
+        <item>Dinner</item>
+        <item>Snack</item>
+        <item>Party</item>
+        <item>Chinese</item>
+        <item>Italian</item>
+        <item>American</item>
+        <item>French</item>
+    </string-array>
+</resources>

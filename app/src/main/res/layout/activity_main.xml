@@ -8,11 +8,11 @@
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/linear_layout"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
         <android.support.v7.widget.Toolbar
@@ -34,8 +34,73 @@
 
         </android.support.v7.widget.Toolbar>
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:fillViewport="true"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar">
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/border"
+                    android:text="Pantry Item 1 - Quantity - Category" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/border"
+                    android:text="Pantry Item 2 - Quantity - Category" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/border"
+                    android:text="Pantry Item 3 - Quantity - Category" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/border"
+                    android:text="Pantry Item 4 - Quantity - Category" />
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <ImageButton
+            android:id="@+id/addItem"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@null"
+            android:contentDescription="Add Item Image"
+            android:onClick="toCreateItem"
+            android:scaleX="3"
+            android:scaleY="3"
+            android:src="@drawable/ic_add_circle_black_24dp" />
+
+
+    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:id = "@+id/nav_view"

@@ -20,7 +20,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".GroceryActivity" />
-        <activity android:name=".MealPlanActivity"></activity>
+        <activity android:name=".MealPlanActivity" />
+        <activity android:name=".CreatePantryItem" />
+        <activity android:name=".CreateMeal" />
+        <activity android:name=".ShoppingView" />
+        <activity android:name=".ViewMeal" />
+        <activity android:name=".ViewPantryItem"></activity>
     </application>
 
 </manifest>

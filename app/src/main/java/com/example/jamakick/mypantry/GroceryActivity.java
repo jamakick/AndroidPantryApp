@@ -1,5 +1,6 @@
 package com.example.jamakick.mypantry;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -9,11 +10,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 public class GroceryActivity extends AppCompatActivity {
 
+    //Everything on this page is the same as the MainActivity Page
+
     private DrawerLayout dlayout;
+
+    private static final int flag1 = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
+
+    private String KEY_INC = "page";
 
 
     @Override
@@ -43,17 +51,16 @@ public class GroceryActivity extends AppCompatActivity {
                         int id = menuItem.getItemId();
 
                         if (id == R.id.nav_pantry) {
-
+                            toPantry();
                         }
 
                         else if (id == R.id.nav_grocery) {
-
+                            toGrocery();
                         }
 
                         else if (id == R.id.nav_meal) {
-
+                            toMealPlan();
                         }
-
                         dlayout.closeDrawers();
                         return true;
                     }
@@ -62,6 +69,52 @@ public class GroceryActivity extends AppCompatActivity {
 
     }
 
+    public void toPantry() {
+
+        Intent intent1 = new Intent(this, MainActivity.class);
+
+        intent1.addFlags(flag1);
+
+//        intent1.putExtra(KEY_INC, increment+1);
+
+        startActivity(intent1);
+
+    }
+
+    public void toGrocery() {
+
+        Intent intent1 = new Intent(this, GroceryActivity.class);
+
+        intent1.addFlags(flag1);
+
+//        intent1.putExtra(KEY_INC, increment+1);
+
+        startActivity(intent1);
+
+    }
+
+    public void toMealPlan() {
+
+        Intent intent1 = new Intent(this, MealPlanActivity.class);
+
+        intent1.addFlags(flag1);
+
+//        intent1.putExtra(KEY_INC, increment+1);
+
+        startActivity(intent1);
+
+    }
+
+    public void toCreateItem(View v) {
+
+        Intent intent1 = new Intent(this, CreatePantryItem.class);
+
+        intent1.addFlags(flag1);
+
+        intent1.putExtra(KEY_INC, "grocery");
+
+        startActivity(intent1);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
