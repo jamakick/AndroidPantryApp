@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
+    tools:context=".MealPlanActivity">
 
     <RelativeLayout
         android:id="@+id/linear_layout"
@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Pantry"
+                android:text="Meal Plan"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp" />
 
@@ -53,7 +53,7 @@
                     android:layout_height="200dp"
                     android:gravity="center_vertical"
                     android:background="@drawable/border"
-                    android:text="Pantry Item 1 - Quantity - Category" />
+                    android:text="Meal Item 1 - Ingredients, Quantity - Recipe - Video - Dayofweek" />
 
                 <TextView
                     android:id="@+id/textView3"
@@ -61,7 +61,7 @@
                     android:layout_height="200dp"
                     android:gravity="center_vertical"
                     android:background="@drawable/border"
-                    android:text="Pantry Item 2 - Quantity - Category" />
+                    android:text="Meal Item 2 - Ingredients, Quantity - Recipe - Video - Dayofweek" />
 
                 <TextView
                     android:id="@+id/textView5"
@@ -69,7 +69,7 @@
                     android:layout_height="200dp"
                     android:gravity="center_vertical"
                     android:background="@drawable/border"
-                    android:text="Pantry Item 3 - Quantity - Category" />
+                    android:text="Meal Item 3 - Ingredients, Quantity - Recipe - Video - Dayofweek" />
 
                 <TextView
                     android:id="@+id/textView6"
@@ -77,7 +77,7 @@
                     android:layout_height="200dp"
                     android:gravity="center_vertical"
                     android:background="@drawable/border"
-                    android:text="Pantry Item 4 - Quantity - Category" />
+                    android:text="Meal Item 4 - Ingredients, Quantity - Recipe - Video - Dayofweek" />
 
 
             </LinearLayout>
@@ -94,7 +94,7 @@
             android:layout_marginBottom="10dp"
             android:background="@null"
             android:contentDescription="Add Item Image"
-            android:onClick="toCreateItem"
+            android:onClick="toCreateMeal"
             android:scaleX="3"
             android:scaleY="3"
             android:src="@drawable/ic_add_circle_black_24dp" />
