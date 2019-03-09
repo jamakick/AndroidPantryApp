@@ -35,52 +35,93 @@
         </android.support.v7.widget.Toolbar>
 
         <ScrollView
+            android:id="@+id/scrollView1"
             android:layout_width="match_parent"
             android:fillViewport="true"
             android:layout_height="match_parent"
             android:layout_below="@id/toolbar">
 
-            <LinearLayout
+            <TableLayout
+                android:id="@+id/itemContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp">
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp">
+
+                <TableRow
+                    android:id="@+id/pantryRow1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center_horizontal">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/pantryItem1"
+                    android:tag="1"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:onClick="toViewItem"
+                    android:background="@drawable/border">
 
                 <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:gravity="center_vertical"
-                    android:background="@drawable/border"
-                    android:text="Pantry Item 1 - Quantity - Category" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:tag="1"
+                    android:textSize="22sp"
+                    android:text="Flour"
+                    />
 
                 <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:gravity="center_vertical"
-                    android:background="@drawable/border"
-                    android:text="Pantry Item 2 - Quantity - Category" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textSize="14sp"
+                    android:tag="1"
+                    android:text="1/2 lb bag"
+                    />
 
                 <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:gravity="center_vertical"
-                    android:background="@drawable/border"
-                    android:text="Pantry Item 3 - Quantity - Category" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textSize="12sp"
+                    android:tag="1"
+                    android:text="Wheat"
+                    />
 
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:gravity="center_vertical"
-                    android:background="@drawable/border"
-                    android:text="Pantry Item 4 - Quantity - Category" />
+                </LinearLayout>
 
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:id="@+id/pantryItem2"
+                        android:tag="pantryItem1"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center"
+                        android:onClick="toViewItem"
+                        android:background="@drawable/border">
 
-            </LinearLayout>
+                        <TextView
+                            android:id="@+id/showitems"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:textSize="22sp"
+                            />
+
+                    </LinearLayout>
+
+                </TableRow>
+
+            </TableLayout>
 
         </ScrollView>
 
@@ -88,13 +129,13 @@
             android:id="@+id/addItem"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:background="@null"
             android:contentDescription="Add Item Image"
-            android:onClick="toCreateItem"
+            android:onClick="toCreatePantryItem"
             android:scaleX="3"
             android:scaleY="3"
             android:src="@drawable/ic_add_circle_black_24dp" />

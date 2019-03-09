@@ -21,8 +21,6 @@ public class GroceryActivity extends AppCompatActivity {
 
     private static final int flag1 = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
-    private String KEY_INC = "page";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,8 +108,6 @@ public class GroceryActivity extends AppCompatActivity {
         Intent intent1 = new Intent(this, CreatePantryItem.class);
 
         intent1.addFlags(flag1);
-
-        intent1.putExtra(KEY_INC, "grocery");
 
         startActivity(intent1);
     }
