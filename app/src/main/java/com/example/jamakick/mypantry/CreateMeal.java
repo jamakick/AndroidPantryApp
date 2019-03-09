@@ -20,7 +20,7 @@ public class CreateMeal extends AppCompatActivity {
 
 
         //We use a spinner object to create a dropdown menu of meal categories
-        Spinner spinner1 = (Spinner) findViewById(R.id.spinner);
+        Spinner spinner1 = findViewById(R.id.spinner);
 
         //The array adapter gets the categories from our mealCats.xml file in the values folder
         ArrayAdapter<CharSequence> catAdapter = ArrayAdapter.createFromResource(this, R.array.mealCats,

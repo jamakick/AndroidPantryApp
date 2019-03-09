@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Add Item"
+            android:text="Add Pantry Item"
             android:textColor="#FFFFFF"
             android:textSize="24sp" />
 
@@ -37,35 +37,84 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_marginTop="50dp"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Item Name:" />
 
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_marginTop="50dp"
-        android:layout_width="250dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Item Quantity:" />
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp">
 
-    <EditText
-        android:id="@+id/editText4"
-        android:layout_marginTop="50dp"
-        android:layout_width="250dp"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Item Name"
+            android:textSize="16sp"
+            android:layout_marginEnd="10dp"/>
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Item Quantity"
+            android:textSize="16sp"
+            android:layout_marginEnd="10dp"/>
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="20dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Item Description"
+            android:textSize="16sp"
+            android:layout_marginEnd="10dp"/>
+        <EditText
+            android:id="@+id/editText3"
+            android:inputType="textMultiLine"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:ems="10"
+            />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Item Category"
         android:layout_gravity="center"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Item Description:" />
+        />
 
     <Spinner
         android:id="@+id/spinner"
@@ -81,7 +130,7 @@
         android:layout_width="300dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:onClick="toNext"
+        android:onClick="addItem"
         android:text="Add Item" />
 
 

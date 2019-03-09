@@ -5,18 +5,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class CreatePantryItem extends AppCompatActivity {
+
+    private String KEY_NM = "name";
+    private String KEY_QTY = "qty";
+    private String KEY_DESC = "desc";
+    private String KEY_CTG = "ctg";
 
     //all the code here is the same as in Create Meal except for the extra data sent in the bundle
 
     private static final int flag1 = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
-
-    //our key is page and we create a string variable to initialize it
-    private String KEY_INC = "page";
-
-    private String page;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,42 +34,50 @@ public class CreatePantryItem extends AppCompatActivity {
 
         spinner1.setAdapter(catAdapter);
 
+    }
 
-        //after setting our spinner we get our bundle and find what data is in the bundle for our KEY_INC
-        Bundle bundle = getIntent().getExtras();
 
-        if (bundle == null) {
-            page = "pantry";
-        }
-        else {
-            page = bundle.getString(KEY_INC);
-        }
+    public void addItem(View v) {
+
+        EditText nameEdit = findViewById(R.id.editText1);
+        String nameText = nameEdit.getText().toString();
+
+        EditText qtyEdit = findViewById(R.id.editText2);
+        String qtyText = qtyEdit.getText().toString();
+
+        EditText descEdit= findViewById(R.id.editText3);
+        String descText = descEdit.getText().toString();
+
+        Spinner ctgEdit = findViewById(R.id.spinner);
+        String ctgText = ctgEdit.getSelectedItem().toString();
+
+        PantryItem item1 = new PantryItem(nameText, qtyText, descText, ctgText);
+
+        PantryDBHandler handler = new PantryDBHandler(this);
+
+        handler.addPantryItem(item1);
+
+        Toast.makeText(this, nameText + " was added to the Pantry", Toast.LENGTH_SHORT).show();
+
+
+//        Toast.makeText(this, nameText, Toast.LENGTH_SHORT).show();
+
+        Intent intent1 = new Intent(this, MainActivity.class);
+
+        intent1.addFlags(flag1);
+
+        startActivity(intent1);
+
     }
 
 
 
     public void toNext(View v) {
 
-        Intent intent1 = new Intent();
 
-        //Here I attempt to distinguish between what intent should be created depending on
-        //the value of page. It is not working currently and I have been unable to solve why
-        //so currently the grocery page still links back to the pantry
-
-//        if (page == "pantry") {
-//
-//            intent1 = new Intent(this, MainActivity.class);
-//        }
-//
-//        else if (page == "grocery") {
-//            intent1 = new Intent(this, GroceryActivity.class);
-//        }
-
-        intent1 = new Intent(this, MainActivity.class);
+        Intent intent1 = new Intent(this, MainActivity.class);
 
         intent1.addFlags(flag1);
-
-//        intent1.putExtra(KEY_INC, increment+1);
 
         startActivity(intent1);
 
