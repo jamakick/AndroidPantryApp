@@ -25,7 +25,9 @@
         <activity android:name=".CreateMeal" />
         <activity android:name=".ShoppingView" />
         <activity android:name=".ViewMeal" />
-        <activity android:name=".ViewPantryItem"></activity>
+        <activity android:name=".ViewPantryItem" />
+        <activity android:name=".CreateGroceryItem" />
+        <activity android:name=".ViewGroceryItem"></activity>
     </application>
 
 </manifest>

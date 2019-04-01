@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".ViewPantryItem">
+    tools:context=".ViewGroceryItem">
 
 
     <android.support.v7.widget.Toolbar
@@ -134,7 +134,7 @@
         android:layout_marginTop="40dp"
         android:layout_height="wrap_content"
         android:text="Delete"
-        android:onClick="deleteItem"
+        android:onClick="deleteGroceryItem"
         android:layout_gravity="center"/>
 
 

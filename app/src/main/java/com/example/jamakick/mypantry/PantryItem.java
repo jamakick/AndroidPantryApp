@@ -29,7 +29,7 @@ public class PantryItem {
     //override our to string method to print out a little nicer
     public String toString() {
         String output = "";
-        output += pitemName + " " + pitemQty + " " + pitemDesc + " " + pitemCtg;
+        output += pitemID + " " + pitemName + "\n\n" + pitemQty + "\n\n" + pitemCtg;
 
         return output;
     }
