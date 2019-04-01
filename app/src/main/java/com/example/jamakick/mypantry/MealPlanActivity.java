@@ -102,10 +102,10 @@ public class MealPlanActivity extends AppCompatActivity {
         PantryDBHandler handler = new PantryDBHandler(this);
 
         //Establish Arraylist collection of pantry items
-        ArrayList<PantryItem> items;
+        ArrayList<MealItem> items;
 
         //Call the get items function through our handler to get an arraylist of pantry items
-        items = handler.getItems();
+        items = handler.getMeals();
 
         //Creates the views on the pantry page for each pantry item
         createItemViews(items);
@@ -180,9 +180,9 @@ public class MealPlanActivity extends AppCompatActivity {
 
     //sends the user to the create Item activity. This is a button on the relative layout
     //and is an onclick so we give the View argument to it.
-    public void toCreatePantryItem(View v) {
+    public void toCreateMeal(View v) {
 
-        Intent intent1 = new Intent(this, CreatePantryItem.class);
+        Intent intent1 = new Intent(this, CreateMeal.class);
 
         intent1.addFlags(flag1);
 
@@ -190,35 +190,9 @@ public class MealPlanActivity extends AppCompatActivity {
         startActivity(intent1);
     }
 
-//    public void toViewItem(View v) {
-//        //sends the user to view pantry item along with that pantry items ID for future identification
-//        String pantryID = v.getTag().toString();
-//
-////        Toast.makeText(this, pantryID, Toast.LENGTH_SHORT).show();
-//        Intent intent1 = new Intent(this, ViewPantryItem.class);
-//
-//        intent1.addFlags(flag1);
-//
-//        //this is not sending the correct ID for some reason, it always sends an ID of 0 and I cannot make it change
-//        intent1.putExtra(KEY_ITM, pantryID);
-//
-//        startActivity(intent1);
-//    }
+    private void createItemViews(ArrayList<MealItem> items) {
 
-//                    <TextView
-//    android:id="@+id/testview1"
-//    android:layout_width="150dp"
-//    android:layout_height="150dp"
-//    android:layout_margin="15dp"
-//    android:gravity="center"
-//    android:onClick="toViewItem"
-//    android:tag="1"
-//    android:textSize="16sp"
-//    android:text="White Bread\n\n2 loaves\n\nWheat"
-//    android:background="@drawable/border"
-//    app:layout_gravity="center" />
-
-    private void createItemViews(ArrayList<PantryItem> items) {
+        //same as in grocery activity but with mealitem rather than pantryitem
 
         int itemSize = items.size();
 
@@ -236,16 +210,16 @@ public class MealPlanActivity extends AppCompatActivity {
 
             newView.setText(items.get(i).toString());
 
-            newView.setTag(items.get(i).getPitemID());
+            newView.setTag(items.get(i).getMealID());
 
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(600, 600);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(1200, 600);
             params.setMargins(60, 60, 60, 60);
 
             newView.setLayoutParams(params);
 
             newView.setGravity(Gravity.CENTER);
 
-            newView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            newView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
 
             newView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -255,7 +229,7 @@ public class MealPlanActivity extends AppCompatActivity {
                     String pantryID = v.getTag().toString();
 
                     //Toast.makeText(this, pantryID, Toast.LENGTH_SHORT).show();
-                    Intent intent1 = new Intent(context, ViewPantryItem.class);
+                    Intent intent1 = new Intent(context, ViewMeal.class);
 
                     //this is not sending the correct ID for some reason, it always sends an ID of 0 and I cannot make it change
                     intent1.putExtra(KEY_ITM, pantryID);

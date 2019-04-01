@@ -50,7 +50,6 @@ public class ViewPantryItem extends AppCompatActivity {
         PantryDBHandler handler = new PantryDBHandler(this);
 
         //call the findpantryitem function from our handler on our id
-        //currently hardcoded a 1 id since my ID is not passing properly, but it shows the view properly for number 1
         PantryItem item1 = handler.findPantryItem(Integer.parseInt(id));
 
 //        Toast.makeText(this, Integer.toString(id), Toast.LENGTH_LONG).show();

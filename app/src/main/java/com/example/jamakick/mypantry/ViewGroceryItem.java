@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 public class ViewGroceryItem extends AppCompatActivity {
 
-    //key to get back our pantry item ID
+    //key to get back our grocery item ID
     private String KEY_ITM = "item";
 
     private static final int flag1 = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
@@ -20,15 +20,15 @@ public class ViewGroceryItem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_grocery_item);
 
-        //on create we call getpantry item to fill in the text views with the pantry items info from our database.
+        //on create we call getGroceryItem item to fill in the text views with the pantry items info from our database.
         getGroceryItem();
     }
 
 
     public void backToMain(View v) {
 
-        //takes you back to the mainactivity
-        Intent intent1 = new Intent(this, MainActivity.class);
+        //takes you back to the groceryactivity
+        Intent intent1 = new Intent(this, GroceryActivity.class);
 
         intent1.addFlags(flag1);
 
@@ -49,8 +49,7 @@ public class ViewGroceryItem extends AppCompatActivity {
         //create our handler
         PantryDBHandler handler = new PantryDBHandler(this);
 
-        //call the findpantryitem function from our handler on our id
-        //currently hardcoded a 1 id since my ID is not passing properly, but it shows the view properly for number 1
+        //call the findgroceryitem function from our handler on our id
         PantryItem item1 = handler.findGroceryItem(Integer.parseInt(id));
 
 //        Toast.makeText(this, Integer.toString(id), Toast.LENGTH_LONG).show();

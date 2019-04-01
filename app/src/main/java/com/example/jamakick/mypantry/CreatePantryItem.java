@@ -11,21 +11,17 @@ import android.widget.Toast;
 
 public class CreatePantryItem extends AppCompatActivity {
 
-    private String KEY_NM = "name";
-    private String KEY_QTY = "qty";
-    private String KEY_DESC = "desc";
-    private String KEY_CTG = "ctg";
-
-    //all the code here is the same as in Create Meal except for the extra data sent in the bundle
-
+    //reorderflag
     private static final int flag1 = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
+    //in our oncreate we set our content view and create a spinner for item categories
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_pantry_item);
 
-        Spinner spinner1 = (Spinner) findViewById(R.id.spinner);
+        //create our spinner and set its resource to be our categories and set the adapter
+        Spinner spinner1 = findViewById(R.id.spinner);
 
         ArrayAdapter<CharSequence> catAdapter = ArrayAdapter.createFromResource(this, R.array.categories,
                 android.R.layout.simple_spinner_dropdown_item);
@@ -39,6 +35,7 @@ public class CreatePantryItem extends AppCompatActivity {
 
     public void addItem(View v) {
 
+        //get our edit text variables and save to strings
         EditText nameEdit = findViewById(R.id.editText1);
         String nameText = nameEdit.getText().toString();
 
@@ -51,17 +48,22 @@ public class CreatePantryItem extends AppCompatActivity {
         Spinner ctgEdit = findViewById(R.id.spinner);
         String ctgText = ctgEdit.getSelectedItem().toString();
 
+        //create a new pantry item with our strings
         PantryItem item1 = new PantryItem(nameText, qtyText, descText, ctgText);
 
+        //invoke dbhandler
         PantryDBHandler handler = new PantryDBHandler(this);
 
+        //add our item to our pantry
         handler.addPantryItem(item1);
 
+        //toast to the user for the success
         Toast.makeText(this, nameText + " was added to the Pantry", Toast.LENGTH_SHORT).show();
 
 
 //        Toast.makeText(this, nameText, Toast.LENGTH_SHORT).show();
 
+        //return the user to the main activity
         Intent intent1 = new Intent(this, MainActivity.class);
 
         intent1.addFlags(flag1);
@@ -74,7 +76,7 @@ public class CreatePantryItem extends AppCompatActivity {
 
     public void toNext(View v) {
 
-
+        //back button returns user to main activity
         Intent intent1 = new Intent(this, MainActivity.class);
 
         intent1.addFlags(flag1);

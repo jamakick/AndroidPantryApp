@@ -190,84 +190,70 @@ public class GroceryActivity extends AppCompatActivity {
         startActivity(intent1);
     }
 
-//    public void toViewItem(View v) {
-//        //sends the user to view pantry item along with that pantry items ID for future identification
-//        String pantryID = v.getTag().toString();
-//
-////        Toast.makeText(this, pantryID, Toast.LENGTH_SHORT).show();
-//        Intent intent1 = new Intent(this, ViewPantryItem.class);
-//
-//        intent1.addFlags(flag1);
-//
-//        //this is not sending the correct ID for some reason, it always sends an ID of 0 and I cannot make it change
-//        intent1.putExtra(KEY_ITM, pantryID);
-//
-//        startActivity(intent1);
-//    }
 
-//                    <TextView
-//    android:id="@+id/testview1"
-//    android:layout_width="150dp"
-//    android:layout_height="150dp"
-//    android:layout_margin="15dp"
-//    android:gravity="center"
-//    android:onClick="toViewItem"
-//    android:tag="1"
-//    android:textSize="16sp"
-//    android:text="White Bread\n\n2 loaves\n\nWheat"
-//    android:background="@drawable/border"
-//    app:layout_gravity="center" />
-
+    //take our pantryitems as an argument to create our views
     private void createItemViews(ArrayList<PantryItem> items) {
 
+        //find the size of our arraylist
         int itemSize = items.size();
 
+        //find our gridlayout and remove all its views so we don't have duplicates
         GridLayout grid = findViewById(R.id.myGrid);
 
         grid.removeAllViews();
 
+        //create a new textview
         TextView newView;
 
+        //establish i variable for looping
         int i;
 
+        //for loop that runs once for every index in our arraylist
         for (i = 0; i < itemSize; i++) {
 
+            //create a new view
             newView = new TextView(this);
 
+            //set its text to the tostring() method in pantryitem
             newView.setText(items.get(i).toString());
 
+            //set the tag to the item ID
             newView.setTag(items.get(i).getPitemID());
 
+            //set our layout parameters for our view in px
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(600, 600);
             params.setMargins(60, 60, 60, 60);
 
             newView.setLayoutParams(params);
 
+            //set view gravity to center
             newView.setGravity(Gravity.CENTER);
 
+            //set text font size
             newView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 
+            //create an onclick listener for our view
             newView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    //sends the user to view pantry item along with that pantry items ID for future identification
+                    //find the id of the item that was clicked
                     String pantryID = v.getTag().toString();
 
-                    //Toast.makeText(this, pantryID, Toast.LENGTH_SHORT).show();
+                    //send the user to the view grocery item along with the id of the item clicked
                     Intent intent1 = new Intent(context, ViewGroceryItem.class);
 
-                    //this is not sending the correct ID for some reason, it always sends an ID of 0 and I cannot make it change
                     intent1.putExtra(KEY_ITM, pantryID);
 
                     startActivity(intent1);
                 }
             });
 
+            //set our background for the view
             newView.setBackgroundResource(R.drawable.border);
 
 
-
+            //add the view to our grid
             grid.addView(newView);
 
 

@@ -190,35 +190,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent1);
     }
 
-//    public void toViewItem(View v) {
-//        //sends the user to view pantry item along with that pantry items ID for future identification
-//        String pantryID = v.getTag().toString();
-//
-////        Toast.makeText(this, pantryID, Toast.LENGTH_SHORT).show();
-//        Intent intent1 = new Intent(this, ViewPantryItem.class);
-//
-//        intent1.addFlags(flag1);
-//
-//        //this is not sending the correct ID for some reason, it always sends an ID of 0 and I cannot make it change
-//        intent1.putExtra(KEY_ITM, pantryID);
-//
-//        startActivity(intent1);
-//    }
-
-//                    <TextView
-//    android:id="@+id/testview1"
-//    android:layout_width="150dp"
-//    android:layout_height="150dp"
-//    android:layout_margin="15dp"
-//    android:gravity="center"
-//    android:onClick="toViewItem"
-//    android:tag="1"
-//    android:textSize="16sp"
-//    android:text="White Bread\n\n2 loaves\n\nWheat"
-//    android:background="@drawable/border"
-//    app:layout_gravity="center" />
 
     private void createItemViews(ArrayList<PantryItem> items) {
+        //same as in grocery activity
 
         int itemSize = items.size();
 

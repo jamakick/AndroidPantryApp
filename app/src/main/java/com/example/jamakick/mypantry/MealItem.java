@@ -1,18 +1,18 @@
 package com.example.jamakick.mypantry;
 
-import java.util.ArrayList;
-
 public class MealItem {
 
+    //create mealitem class to hold the information for an individual meal
     private int mealID;
     private String mealName;
     private String mealTime;
-    private ArrayList<String> mealIngredients;
+    private String mealIngredients;
     private String mealRecipe;
     private String mealNote;
     private String mealVidLink;
 
-    public MealItem(int id, String name, String time, ArrayList<String> ing,
+    //constructor with and without an id
+    public MealItem(int id, String name, String time, String ing,
                     String recipe, String note, String link) {
         mealID = id;
         mealTime = time;
@@ -24,7 +24,7 @@ public class MealItem {
 
     }
 
-    public MealItem(String name, String time, ArrayList<String> ing,
+    public MealItem(String name, String time, String ing,
                     String recipe, String note, String link) {
         mealName = name;
         mealTime = time;
@@ -35,6 +35,7 @@ public class MealItem {
 
     }
 
+    //override our to string method
     @Override
     public String toString() {
         String output = "";
@@ -43,12 +44,12 @@ public class MealItem {
         return output;
     }
 
-
-    public ArrayList<String> getMealIngredients() {
+    //getters and setters
+    public String getMealIngredients() {
         return mealIngredients;
     }
 
-    public void setMealIngredients(ArrayList<String> mealIngredients) {
+    public void setMealIngredients(String mealIngredients) {
         this.mealIngredients = mealIngredients;
     }
 

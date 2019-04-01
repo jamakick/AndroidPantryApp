@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 public class ShoppingView extends AppCompatActivity {
 
+    //not implemented yet
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

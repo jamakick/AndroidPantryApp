@@ -11,12 +11,7 @@ import android.widget.Toast;
 
 public class CreateGroceryItem extends AppCompatActivity {
 
-    private String KEY_NM = "name";
-    private String KEY_QTY = "qty";
-    private String KEY_DESC = "desc";
-    private String KEY_CTG = "ctg";
-
-    //all the code here is the same as in Create Meal except for the extra data sent in the bundle
+    //code here is the same as in create pantry item
 
     private static final int flag1 = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
@@ -25,7 +20,7 @@ public class CreateGroceryItem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_grocery_item);
 
-        Spinner spinner1 = (Spinner) findViewById(R.id.spinner);
+        Spinner spinner1 = findViewById(R.id.spinner);
 
         ArrayAdapter<CharSequence> catAdapter = ArrayAdapter.createFromResource(this, R.array.categories,
                 android.R.layout.simple_spinner_dropdown_item);
@@ -57,7 +52,7 @@ public class CreateGroceryItem extends AppCompatActivity {
 
         handler.addGroceryItem(item1);
 
-        Toast.makeText(this, nameText + " was added to the Pantry", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, nameText + " was added to the Grocery List", Toast.LENGTH_SHORT).show();
 
 
 //        Toast.makeText(this, nameText, Toast.LENGTH_SHORT).show();
@@ -75,7 +70,7 @@ public class CreateGroceryItem extends AppCompatActivity {
     public void toNext(View v) {
 
 
-        Intent intent1 = new Intent(this, MainActivity.class);
+        Intent intent1 = new Intent(this, GroceryActivity.class);
 
         intent1.addFlags(flag1);
 
