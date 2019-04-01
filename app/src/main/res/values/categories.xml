@@ -10,5 +10,6 @@
         <item>Fruit</item>
         <item>Frozen</item>
         <item>Refrigerated</item>
+        <item>Grain</item>
     </string-array>
 </resources>

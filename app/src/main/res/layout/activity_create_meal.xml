@@ -37,43 +37,82 @@
 
     </android.support.v7.widget.Toolbar>
 
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="1">
+
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/editName"
         android:layout_marginTop="50dp"
-        android:layout_width="250dp"
+        android:layout_width="325dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Meal Name:" />
 
+        <EditText
+            android:id="@+id/editTime"
+            android:layout_marginTop="50dp"
+            android:layout_width="325dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Meal Time:" />
+
+        <EditText
+            android:id="@+id/editIngredients"
+            android:layout_marginTop="50dp"
+            android:layout_width="325dp"
+            android:layout_height="wrap_content"
+            android:minHeight="200dp"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:text="Meal Ingredients:" />
+
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/editRecipe"
         android:layout_marginTop="50dp"
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
+        android:minWidth="325dp"
+        android:minHeight="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textMultiLine"
         android:text="Meal Recipe:" />
 
-    <EditText
-        android:id="@+id/editText4"
-        android:layout_marginTop="50dp"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Meal Ingredients:" />
+        <EditText
+            android:id="@+id/editNotes"
+            android:layout_marginTop="50dp"
+            android:layout_width="325dp"
+            android:minHeight="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:text="Meal Notes:" />
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_marginTop="20dp"
-        android:layout_width="150dp"
-        android:layout_gravity="center"
-        android:background="@drawable/border"
-        android:layout_height="40dp" />
+        <EditText
+            android:id="@+id/editLink"
+            android:layout_marginTop="50dp"
+            android:layout_width="325dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Video Link:" />
+
 
     <Button
         android:id="@+id/button"
@@ -81,8 +120,12 @@
         android:layout_width="300dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:onClick="toNext"
+        android:onClick="addMeal"
         android:text="Add Meal" />
+
+    </GridLayout>
+
+    </ScrollView>
 
 
 </LinearLayout>

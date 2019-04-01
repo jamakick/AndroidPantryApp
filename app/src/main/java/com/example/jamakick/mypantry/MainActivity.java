@@ -1,5 +1,6 @@
 package com.example.jamakick.mypantry;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,7 +11,10 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,11 +35,10 @@ public class MainActivity extends AppCompatActivity {
     //intent flag to prevent creating instances of the same activity over and over
     private static final int flag1 = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
+    Context context;
+
     //Key for giving what page is sending the information
     private String KEY_ITM = "item";
-
-    private TextView showItemsView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,29 +46,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Set the toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ActionBar actionbar = getSupportActionBar();
 
         //Creates the 3 bar menu icon that will bring up the "home" or side menu
+        assert actionbar != null;
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
 
         //Delete the default title since we have a custom one
         getSupportActionBar().setTitle(null);
 
-        //Establish Arraylist collection of pantry items
-        ArrayList<PantryItem> items = new ArrayList<>();
-
-        //Establish database handler
-        PantryDBHandler handler = new PantryDBHandler(this);
-
-        //Call the get items function through our handler to get an arraylist of pantry items
-        items = handler.getItems();
-
-        //Creates the views on the pantry page for each pantry item
-        createItemViews(items);
+        context = getApplicationContext();
 
         //use our drawer layout and navigation view to create our menu items and point them to their function calls
         dlayout = findViewById(R.id.drawer_layout);
@@ -104,12 +98,16 @@ public class MainActivity extends AppCompatActivity {
         //we use on resume to rerun our createitemviews to include any new items created
         super.onResume();
 
-        ArrayList<PantryItem> items = new ArrayList<>();
-
+        //Establish database handler
         PantryDBHandler handler = new PantryDBHandler(this);
 
+        //Establish Arraylist collection of pantry items
+        ArrayList<PantryItem> items;
+
+        //Call the get items function through our handler to get an arraylist of pantry items
         items = handler.getItems();
 
+        //Creates the views on the pantry page for each pantry item
         createItemViews(items);
 
 
@@ -192,99 +190,62 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent1);
     }
 
-    public void toViewItem(View v) {
-        //sends the user to view pantry item along with that pantry items ID for future identification
-        String pantryID = v.getTag().toString();
-
-//        Toast.makeText(this, pantryID, Toast.LENGTH_SHORT).show();
-        Intent intent1 = new Intent(this, ViewPantryItem.class);
-
-        intent1.addFlags(flag1);
-
-        //this is not sending the correct ID for some reason, it always sends an ID of 0 and I cannot make it change
-        intent1.putExtra(KEY_ITM, pantryID);
-
-        startActivity(intent1);
-    }
 
     private void createItemViews(ArrayList<PantryItem> items) {
-
-        //Currently I am taking my ArrayList of items and just putting it into the text in my textview so it displays
-
-        //What should be happening, is I create a row with two linear layouts that have text views for each pantry item, but
-        //I am unable to create these layouts and add them to the xml file through Java. I have to brainstorm better ways to do this
-        //but so far have been unsuccessful, however the database portion works properly
+        //same as in grocery activity
 
         int itemSize = items.size();
 
-        TableLayout layout = findViewById(R.id.itemContainer);
+        GridLayout grid = findViewById(R.id.myGrid);
 
-        TextView showItemsView = findViewById(R.id.showitems);
+        grid.removeAllViews();
 
-        showItemsView.setText(items.toString());
+        TextView newView;
 
-        //Trying to set up my views properly to make it look good, but is not currently working right.
+        int i;
 
-//        if (itemSize > 0) {
-//
-//            if (itemSize % 2 == 0) {
-//                TableRow tr = new TableRow(this);
-//                int i;
-//
-//                for (i = 0; i < itemSize; i += 2)
-//
-//                    tr = new TableRow(this);
-//                tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-//
-//                LinearLayout ll = new LinearLayout(this);
-//
-//                ll.setLayoutParams(new LinearLayout.LayoutParams(120, 120));
-//
-//                TextView tv1 = new TextView(this);
-//                tv1.setLayoutParams(new ViewGroup.LayoutParams(android.app.ActionBar.LayoutParams.WRAP_CONTENT, android.app.ActionBar.LayoutParams.WRAP_CONTENT));
-//                tv1.setText(items.get(i).getPitemName());
-//
-//                TextView tv2 = new TextView(this);
-//                tv2.setLayoutParams(new ViewGroup.LayoutParams(android.app.ActionBar.LayoutParams.WRAP_CONTENT, android.app.ActionBar.LayoutParams.WRAP_CONTENT));
-//                tv2.setText(items.get(i).getPitemQty());
-//
-//                TextView tv3 = new TextView(this);
-//                tv3.setLayoutParams(new ViewGroup.LayoutParams(android.app.ActionBar.LayoutParams.WRAP_CONTENT, android.app.ActionBar.LayoutParams.WRAP_CONTENT));
-//                tv3.setText(items.get(i).getPitemCtg());
-//
-//                ll.addView(tv1);
-//                ll.addView(tv2);
-//                ll.addView(tv3);
-//
-//                tr.addView(ll);
-//
-//
-//                LinearLayout ll1 = new LinearLayout(this);
-//
-//                ll.setLayoutParams(new LinearLayout.LayoutParams(120, 120));
-//
-//                TextView tv4 = new TextView(this);
-//                tv1.setLayoutParams(new ViewGroup.LayoutParams(android.app.ActionBar.LayoutParams.WRAP_CONTENT, android.app.ActionBar.LayoutParams.WRAP_CONTENT));
-//                tv1.setText(items.get(i).getPitemName());
-//
-//                TextView tv5 = new TextView(this);
-//                tv2.setLayoutParams(new ViewGroup.LayoutParams(android.app.ActionBar.LayoutParams.WRAP_CONTENT, android.app.ActionBar.LayoutParams.WRAP_CONTENT));
-//                tv2.setText(items.get(i).getPitemQty());
-//
-//                TextView tv6 = new TextView(this);
-//                tv3.setLayoutParams(new ViewGroup.LayoutParams(android.app.ActionBar.LayoutParams.WRAP_CONTENT, android.app.ActionBar.LayoutParams.WRAP_CONTENT));
-//                tv3.setText(items.get(i).getPitemCtg());
-//
-//                ll1.addView(tv4);
-//                ll1.addView(tv5);
-//                ll1.addView(tv6);
-//
-//                tr.addView(ll1);
-//
-//
-//            }
-//
-//        }
+        for (i = 0; i < itemSize; i++) {
+
+            newView = new TextView(this);
+
+            newView.setText(items.get(i).toString());
+
+            newView.setTag(items.get(i).getPitemID());
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(600, 600);
+            params.setMargins(60, 60, 60, 60);
+
+            newView.setLayoutParams(params);
+
+            newView.setGravity(Gravity.CENTER);
+
+            newView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+
+            newView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    //sends the user to view pantry item along with that pantry items ID for future identification
+                    String pantryID = v.getTag().toString();
+
+                    //Toast.makeText(this, pantryID, Toast.LENGTH_SHORT).show();
+                    Intent intent1 = new Intent(context, ViewPantryItem.class);
+
+                    //this is not sending the correct ID for some reason, it always sends an ID of 0 and I cannot make it change
+                    intent1.putExtra(KEY_ITM, pantryID);
+
+                    startActivity(intent1);
+                }
+            });
+
+            newView.setBackgroundResource(R.drawable.border);
+
+
+
+            grid.addView(newView);
+
+
+        }
 
     }
 }
