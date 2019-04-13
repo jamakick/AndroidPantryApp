@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="qtyCategories">
+        <item>lb</item>
+        <item>oz</item>
+        <item>l</item>
+        <item>ml</item>
+        <item>cup</item>
+        <item>loaf</item>
+    </string-array>
+</resources>

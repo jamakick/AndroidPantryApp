@@ -12,13 +12,14 @@ import java.util.ArrayList;
 public class PantryDBHandler extends SQLiteOpenHelper {
 
     //create all our static variables
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 9;
     private static final String DATABASE_NAME = "pantryDB.db";
 
     private static final String TABLE_PANTRY = "Pantry";
     private static final String COLUMN_PITEMID = "pitem_id";
     private static final String COLUMN_PITEMNAME = "pitem_name";
     private static final String COLUMN_PITEMQTY = "pitem_qty";
+    private static final String COLUMN_PITEMQTYNAME = "pitem_qtyName";
     private static final String COLUMN_PITEMDESC = "pitem_desc";
     private static final String COLUMN_PITEMCTG = "pitem_ctg";
 
@@ -26,6 +27,7 @@ public class PantryDBHandler extends SQLiteOpenHelper {
     private static final String COLUMN_GITEMID = "gitem_id";
     private static final String COLUMN_GITEMNAME = "gitem_name";
     private static final String COLUMN_GITEMQTY = "gitem_qty";
+    private static final String COLUMN_GITEMQTYNAME = "gitem_qtyName";
     private static final String COLUMN_GITEMNOTE = "gitem_note";
     private static final String COLUMN_GITEMCTG = "gitem_ctg";
 
@@ -52,6 +54,7 @@ public class PantryDBHandler extends SQLiteOpenHelper {
                 COLUMN_PITEMID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_PITEMNAME + " TEXT, " +
                 COLUMN_PITEMQTY + " TEXT, " +
+                COLUMN_PITEMQTYNAME + " TEXT, " +
                 COLUMN_PITEMDESC + " TEXT, " +
                 COLUMN_PITEMCTG + " TEXT);";
 
@@ -63,6 +66,7 @@ public class PantryDBHandler extends SQLiteOpenHelper {
                 COLUMN_GITEMID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_GITEMNAME + " TEXT, " +
                 COLUMN_GITEMQTY + " TEXT, " +
+                COLUMN_GITEMQTYNAME + " TEXT, " +
                 COLUMN_GITEMNOTE + " TEXT, " +
                 COLUMN_GITEMCTG + " TEXT);";
 
@@ -111,8 +115,8 @@ public class PantryDBHandler extends SQLiteOpenHelper {
 
         //insert our values for our pantry item into the pantry table
 
-        String sqlQuery = "INSERT INTO Pantry (pitem_name, pitem_qty, pitem_desc, pitem_ctg) VALUES (\"" +
-                item.getPitemName() + "\", \"" + item.getPitemQty() + "\", \"" + item.getPitemDesc()
+        String sqlQuery = "INSERT INTO Pantry (pitem_name, pitem_qty, pitem_qtyName, pitem_desc, pitem_ctg) VALUES (\"" +
+                item.getPitemName() + "\", \"" + item.getPitemQty() + "\", \"" + item.getPitemQtyName() + "\", \""  + item.getPitemDesc()
                 + "\", \"" + item.getPitemCtg() + "\")";
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -122,8 +126,8 @@ public class PantryDBHandler extends SQLiteOpenHelper {
 
     public void addGroceryItem(PantryItem item) {
 
-        String sqlQuery = "INSERT INTO Grocery (gitem_name, gitem_qty, gitem_note, gitem_ctg) VALUES (\"" +
-                item.getPitemName() + "\", \"" + item.getPitemQty() + "\", \"" + item.getPitemDesc()
+        String sqlQuery = "INSERT INTO Grocery (gitem_name, gitem_qty, gitem_qtyName, gitem_note, gitem_ctg) VALUES (\"" +
+                item.getPitemName() + "\", \"" + item.getPitemQty() + "\", \"" + item.getPitemQtyName() + "\", \"" + item.getPitemDesc()
                 + "\", \"" + item.getPitemCtg() + "\")";
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -167,9 +171,10 @@ public class PantryDBHandler extends SQLiteOpenHelper {
                 int tmpID = myCursor.getInt(0);
                 String tmpName = myCursor.getString(1);
                 String tmpQty = myCursor.getString(2);
-                String tmpDesc = myCursor.getString(3);
-                String tmpCtg = myCursor.getString(4);
-                myItem = new PantryItem(tmpID, tmpName, tmpQty, tmpDesc, tmpCtg);
+                String tmpQtyName = myCursor.getString(3);
+                String tmpDesc = myCursor.getString(4);
+                String tmpCtg = myCursor.getString(5);
+                myItem = new PantryItem(tmpID, tmpName, Integer.parseInt(tmpQty), tmpQtyName, tmpDesc, tmpCtg);
 
                 items.add(myItem);
 
@@ -204,9 +209,10 @@ public class PantryDBHandler extends SQLiteOpenHelper {
                 int tmpID = myCursor.getInt(0);
                 String tmpName = myCursor.getString(1);
                 String tmpQty = myCursor.getString(2);
-                String tmpDesc = myCursor.getString(3);
-                String tmpCtg = myCursor.getString(4);
-                myItem = new PantryItem(tmpID, tmpName, tmpQty, tmpDesc, tmpCtg);
+                String tmpQtyName = myCursor.getString(3);
+                String tmpDesc = myCursor.getString(4);
+                String tmpCtg = myCursor.getString(5);
+                myItem = new PantryItem(tmpID, tmpName, Integer.parseInt(tmpQty), tmpQtyName, tmpDesc, tmpCtg);
 
                 items.add(myItem);
 
@@ -277,11 +283,12 @@ public class PantryDBHandler extends SQLiteOpenHelper {
             int tmpID = myCursor.getInt(0);
             String tmpName = myCursor.getString(1);
             String tmpQty = myCursor.getString(2);
-            String tmpDesc = myCursor.getString(3);
-            String tmpCtg = myCursor.getString(4);
+            String tmpQtyName = myCursor.getString(3);
+            String tmpDesc = myCursor.getString(4);
+            String tmpCtg = myCursor.getString(5);
 
             myCursor.close();
-            myItem = new PantryItem(tmpID, tmpName, tmpQty, tmpDesc, tmpCtg);
+            myItem = new PantryItem(tmpID, tmpName, Integer.parseInt(tmpQty), tmpQtyName, tmpDesc, tmpCtg);
         }
 
         db.close();
@@ -336,11 +343,12 @@ public class PantryDBHandler extends SQLiteOpenHelper {
             int tmpID = myCursor.getInt(0);
             String tmpName = myCursor.getString(1);
             String tmpQty = myCursor.getString(2);
-            String tmpDesc = myCursor.getString(3);
-            String tmpCtg = myCursor.getString(4);
+            String tmpQtyName = myCursor.getString(3);
+            String tmpDesc = myCursor.getString(4);
+            String tmpCtg = myCursor.getString(5);
 
             myCursor.close();
-            myItem = new PantryItem(tmpID, tmpName, tmpQty, tmpDesc, tmpCtg);
+            myItem = new PantryItem(tmpID, tmpName, Integer.parseInt(tmpQty), tmpQtyName, tmpDesc, tmpCtg);
         }
 
         db.close();

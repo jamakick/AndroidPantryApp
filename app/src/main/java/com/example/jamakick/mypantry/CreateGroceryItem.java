@@ -21,14 +21,19 @@ public class CreateGroceryItem extends AppCompatActivity {
         setContentView(R.layout.activity_create_grocery_item);
 
         Spinner spinner1 = findViewById(R.id.spinner);
+        Spinner spinner2 = findViewById(R.id.qtyCtg);
 
         ArrayAdapter<CharSequence> catAdapter = ArrayAdapter.createFromResource(this, R.array.categories,
                 android.R.layout.simple_spinner_dropdown_item);
 
+        ArrayAdapter<CharSequence> qtyAdapter = ArrayAdapter.createFromResource(this, R.array.qtyCategories,
+                android.R.layout.simple_spinner_dropdown_item);
+
         catAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        qtyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner1.setAdapter(catAdapter);
-
+        spinner2.setAdapter(qtyAdapter);
     }
 
 
@@ -38,7 +43,10 @@ public class CreateGroceryItem extends AppCompatActivity {
         String nameText = nameEdit.getText().toString();
 
         EditText qtyEdit = findViewById(R.id.editText2);
-        String qtyText = qtyEdit.getText().toString();
+        int qtyText = Integer.parseInt(qtyEdit.getText().toString());
+
+        Spinner qtyCtg = findViewById(R.id.qtyCtg);
+        String qtyCtgText = qtyCtg.getSelectedItem().toString();
 
         EditText descEdit= findViewById(R.id.editText3);
         String descText = descEdit.getText().toString();
@@ -46,7 +54,7 @@ public class CreateGroceryItem extends AppCompatActivity {
         Spinner ctgEdit = findViewById(R.id.spinner);
         String ctgText = ctgEdit.getSelectedItem().toString();
 
-        PantryItem item1 = new PantryItem(nameText, qtyText, descText, ctgText);
+        PantryItem item1 = new PantryItem(nameText, qtyText, qtyCtgText, descText, ctgText);
 
         PantryDBHandler handler = new PantryDBHandler(this);
 

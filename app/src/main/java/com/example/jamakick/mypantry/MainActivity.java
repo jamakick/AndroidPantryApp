@@ -1,12 +1,15 @@
 package com.example.jamakick.mypantry;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -19,11 +22,16 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -84,11 +92,23 @@ public class MainActivity extends AppCompatActivity {
                             toMealPlan();
                         }
 
+                        else if (id == R.id.nav_map) {
+                            toMap();
+                        }
+
 
                         dlayout.closeDrawers();
                         return true;
                     }
                 });
+
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            int PERMISSION_REQUEST = 100;
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST);
+        }
 
 
     }
@@ -178,6 +198,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void toMap() {
+
+        Intent intent1 = new Intent(this, MapsActivity.class);
+        intent1.addFlags(flag1);
+
+        startActivity(intent1);
+    }
+
     //sends the user to the create Item activity. This is a button on the relative layout
     //and is an onclick so we give the View argument to it.
     public void toCreatePantryItem(View v) {
@@ -192,60 +220,47 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void createItemViews(ArrayList<PantryItem> items) {
-        //same as in grocery activity
+
+        //same as in mealplanactivity
+
+        GridView gridView;
+        ArrayList<PantryGridItem> gridArray = new ArrayList<>();
+        PantryGridViewAdapter pantryGridAdapter;
 
         int itemSize = items.size();
-
-        GridLayout grid = findViewById(R.id.myGrid);
-
-        grid.removeAllViews();
-
-        TextView newView;
 
         int i;
 
         for (i = 0; i < itemSize; i++) {
 
-            newView = new TextView(this);
+            PantryItem item = items.get(i);
 
-            newView.setText(items.get(i).toString());
-
-            newView.setTag(items.get(i).getPitemID());
-
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(600, 600);
-            params.setMargins(60, 60, 60, 60);
-
-            newView.setLayoutParams(params);
-
-            newView.setGravity(Gravity.CENTER);
-
-            newView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-
-            newView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    //sends the user to view pantry item along with that pantry items ID for future identification
-                    String pantryID = v.getTag().toString();
-
-                    //Toast.makeText(this, pantryID, Toast.LENGTH_SHORT).show();
-                    Intent intent1 = new Intent(context, ViewPantryItem.class);
-
-                    //this is not sending the correct ID for some reason, it always sends an ID of 0 and I cannot make it change
-                    intent1.putExtra(KEY_ITM, pantryID);
-
-                    startActivity(intent1);
-                }
-            });
-
-            newView.setBackgroundResource(R.drawable.border);
-
-
-
-            grid.addView(newView);
-
-
+            gridArray.add(new PantryGridItem(item.getPitemID(), item.getPitemName(), item.getPitemQty(), item.getPitemQtyName(), item.getPitemCtg()));
         }
+
+        gridView = findViewById(R.id.gridView);
+        pantryGridAdapter = new PantryGridViewAdapter(this, R.layout.row_grid, gridArray);
+
+        gridView.setAdapter(pantryGridAdapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                RelativeLayout rlayout = (RelativeLayout) view;
+
+                TextView tview = (TextView) rlayout.getChildAt(0);
+
+                String pantryID = tview.getTag().toString();
+
+                Intent intent1 = new Intent(context, ViewPantryItem.class);
+
+                intent1.putExtra(KEY_ITM, pantryID);
+
+                startActivity(intent1);
+            }
+        });
+
 
     }
 }

@@ -60,7 +60,15 @@ public class ViewGroceryItem extends AppCompatActivity {
         TextView tv3 = findViewById(R.id.descView);
         TextView tv4 = findViewById(R.id.ctgView);
         tv1.setText(item1.getPitemName());
-        tv2.setText(item1.getPitemQty());
+
+        //compound qty means we build our string before setting the text
+        String qtyString = "";
+
+        qtyString += item1.getPitemQty();
+        qtyString += " " + item1.getPitemQtyName();
+
+        tv2.setText(qtyString);
+
         tv3.setText(item1.getPitemDesc());
         tv4.setText(item1.getPitemCtg());
 

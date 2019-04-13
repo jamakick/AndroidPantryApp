@@ -34,22 +34,17 @@
 
         </android.support.v7.widget.Toolbar>
 
-        <ScrollView
+        <GridView
             android:layout_width="match_parent"
-            android:fillViewport="true"
-            android:layout_height="match_parent"
-            android:layout_below="@id/toolbar">
-
-            <android.support.v7.widget.GridLayout
-                android:id="@+id/myGrid"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:columnCount="2">
+            android:id="@+id/gridView"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:numColumns="2"
+            android:layout_below="@id/toolbar"
+            >
 
 
-            </android.support.v7.widget.GridLayout>
-
-        </ScrollView>
+        </GridView>
 
         <ImageButton
             android:id="@+id/addItem"
