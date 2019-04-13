@@ -19,7 +19,10 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -82,6 +85,10 @@ public class GroceryActivity extends AppCompatActivity {
 
                         else if (id == R.id.nav_meal) {
                             toMealPlan();
+                        }
+
+                        else if (id == R.id.nav_map) {
+                            toMap();
                         }
 
 
@@ -154,6 +161,14 @@ public class GroceryActivity extends AppCompatActivity {
 
     }
 
+    public void toMap() {
+
+        Intent intent1 = new Intent(this, MapsActivity.class);
+        intent1.addFlags(flag1);
+
+        startActivity(intent1);
+    }
+
     //sends the user to the grocery activity
     public void toGrocery() {
 
@@ -194,70 +209,46 @@ public class GroceryActivity extends AppCompatActivity {
     //take our pantryitems as an argument to create our views
     private void createItemViews(ArrayList<PantryItem> items) {
 
-        //find the size of our arraylist
+        //same as our mainactivity and mealplanactivity
+
+        GridView gridView;
+        ArrayList<PantryGridItem> gridArray = new ArrayList<>();
+        GroceryGridViewAdapter groceryGridAdapter;
+
         int itemSize = items.size();
 
-        //find our gridlayout and remove all its views so we don't have duplicates
-        GridLayout grid = findViewById(R.id.myGrid);
-
-        grid.removeAllViews();
-
-        //create a new textview
-        TextView newView;
-
-        //establish i variable for looping
         int i;
 
-        //for loop that runs once for every index in our arraylist
         for (i = 0; i < itemSize; i++) {
 
-            //create a new view
-            newView = new TextView(this);
+            PantryItem item = items.get(i);
 
-            //set its text to the tostring() method in pantryitem
-            newView.setText(items.get(i).toString());
-
-            //set the tag to the item ID
-            newView.setTag(items.get(i).getPitemID());
-
-            //set our layout parameters for our view in px
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(600, 600);
-            params.setMargins(60, 60, 60, 60);
-
-            newView.setLayoutParams(params);
-
-            //set view gravity to center
-            newView.setGravity(Gravity.CENTER);
-
-            //set text font size
-            newView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-
-            //create an onclick listener for our view
-            newView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    //find the id of the item that was clicked
-                    String pantryID = v.getTag().toString();
-
-                    //send the user to the view grocery item along with the id of the item clicked
-                    Intent intent1 = new Intent(context, ViewGroceryItem.class);
-
-                    intent1.putExtra(KEY_ITM, pantryID);
-
-                    startActivity(intent1);
-                }
-            });
-
-            //set our background for the view
-            newView.setBackgroundResource(R.drawable.border);
-
-
-            //add the view to our grid
-            grid.addView(newView);
-
-
+            gridArray.add(new PantryGridItem(item.getPitemID(), item.getPitemName(), item.getPitemQty(), item.getPitemQtyName(), item.getPitemCtg()));
         }
+
+        gridView = findViewById(R.id.gridView);
+        groceryGridAdapter = new GroceryGridViewAdapter(this, R.layout.row_grid, gridArray);
+
+        gridView.setAdapter(groceryGridAdapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                RelativeLayout rlayout = (RelativeLayout) view;
+
+                TextView tview = (TextView) rlayout.getChildAt(0);
+
+                String pantryID = tview.getTag().toString();
+
+                Intent intent1 = new Intent(context, ViewGroceryItem.class);
+
+                intent1.putExtra(KEY_ITM, pantryID);
+
+                startActivity(intent1);
+            }
+        });
+
 
     }
 }

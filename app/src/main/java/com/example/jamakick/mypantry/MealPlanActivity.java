@@ -19,7 +19,10 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -192,60 +195,56 @@ public class MealPlanActivity extends AppCompatActivity {
 
     private void createItemViews(ArrayList<MealItem> items) {
 
-        //same as in grocery activity but with mealitem rather than pantryitem
+        //create our gridview, arraylist of mealitems, and our custom meal adapter
+        GridView gridView;
+        ArrayList<MealItem> gridArray = new ArrayList<>();
+        MealGridViewAdapter mealGridAdapter;
 
+        //get out amount of items
         int itemSize = items.size();
-
-        GridLayout grid = findViewById(R.id.myGrid);
-
-        grid.removeAllViews();
-
-        TextView newView;
 
         int i;
 
+        //for every item in our meal arraylist
         for (i = 0; i < itemSize; i++) {
 
-            newView = new TextView(this);
+            //get our meal item based on the i index and add it to our grid array with meal item constructor
+            MealItem item = items.get(i);
 
-            newView.setText(items.get(i).toString());
-
-            newView.setTag(items.get(i).getMealID());
-
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(1200, 600);
-            params.setMargins(60, 60, 60, 60);
-
-            newView.setLayoutParams(params);
-
-            newView.setGravity(Gravity.CENTER);
-
-            newView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-
-            newView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    //sends the user to view pantry item along with that pantry items ID for future identification
-                    String pantryID = v.getTag().toString();
-
-                    //Toast.makeText(this, pantryID, Toast.LENGTH_SHORT).show();
-                    Intent intent1 = new Intent(context, ViewMeal.class);
-
-                    //this is not sending the correct ID for some reason, it always sends an ID of 0 and I cannot make it change
-                    intent1.putExtra(KEY_ITM, pantryID);
-
-                    startActivity(intent1);
-                }
-            });
-
-            newView.setBackgroundResource(R.drawable.border);
-
-
-
-            grid.addView(newView);
-
-
+            gridArray.add(new MealItem(item.getMealID(), item.getMealName(), item.getMealTime(),
+                    item.getMealIngredients(), item.getMealRecipe(), item.getMealNote(), item.getMealVidLink()));
         }
+
+        //get the gridview from our xml
+        gridView = findViewById(R.id.gridView);
+        //create a new mealgridadapter with the layout for our row and the mealitems from our gridarray
+        mealGridAdapter = new MealGridViewAdapter(this, R.layout.meal_row_grid, gridArray);
+
+        gridView.setAdapter(mealGridAdapter);
+
+        //set click listener for our gridview
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                //cast the clicked view to a relative layout so we can get its children
+                RelativeLayout rlayout = (RelativeLayout) view;
+
+                //cast the relative layouts child to a textview
+                TextView tview = (TextView) rlayout.getChildAt(0);
+
+                //get our textview tag since that is the meal id
+                String mealID = tview.getTag().toString();
+
+                //send to view meal class with our meal id
+                Intent intent1 = new Intent(context, ViewMeal.class);
+
+                intent1.putExtra(KEY_ITM, mealID);
+
+                startActivity(intent1);
+            }
+        });
+
 
     }
 }

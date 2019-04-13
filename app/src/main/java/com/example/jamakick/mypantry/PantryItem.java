@@ -5,22 +5,25 @@ public class PantryItem {
     //create our member variables
     private int pitemID;
     private String pitemName;
-    private String pitemQty;
+    private int pitemQty;
+    private String pitemQtyName;
     private String pitemDesc;
     private String pitemCtg;
 
     //create our constructor both with and without id arg
-    public PantryItem(int id, String name, String qty, String desc, String ctg) {
+    public PantryItem(int id, String name, int qty, String qtyName, String desc, String ctg) {
         pitemID = id;
         pitemName = name;
         pitemQty = qty;
+        pitemQtyName = qtyName;
         pitemDesc = desc;
         pitemCtg = ctg;
     }
 
-    public PantryItem (String name, String qty, String desc, String ctg) {
+    public PantryItem (String name, int qty, String qtyName, String desc, String ctg) {
         pitemName = name;
         pitemQty = qty;
+        pitemQtyName = qtyName;
         pitemDesc = desc;
         pitemCtg = ctg;
     }
@@ -29,7 +32,7 @@ public class PantryItem {
     //override our to string method to print out a little nicer
     public String toString() {
         String output = "";
-        output += pitemID + " " + pitemName + "\n\n" + pitemQty + "\n\n" + pitemCtg;
+        output += pitemName + "\n\n" + pitemQty + " " + pitemQtyName + "\n\n" + pitemCtg;
 
         return output;
     }
@@ -51,11 +54,11 @@ public class PantryItem {
         this.pitemName = pitemName;
     }
 
-    public String getPitemQty() {
+    public int getPitemQty() {
         return pitemQty;
     }
 
-    public void setPitemQty(String pitemQty) {
+    public void setPitemQty(int pitemQty) {
         this.pitemQty = pitemQty;
     }
 
@@ -73,5 +76,13 @@ public class PantryItem {
 
     public void setPitemCtg(String pitemCtg) {
         this.pitemCtg = pitemCtg;
+    }
+
+    public String getPitemQtyName() {
+        return pitemQtyName;
+    }
+
+    public void setPitemQtyName(String pitemQtyName) {
+        this.pitemQtyName = pitemQtyName;
     }
 }
