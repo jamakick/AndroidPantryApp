@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".EditMealItem">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <TextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Edit Meal"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp" />
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:onClick="toNext"
+            android:src="@drawable/ic_arrow_back_black_24dp" />
+
+
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="1">
+
+            <EditText
+                android:id="@+id/editName"
+                android:layout_marginTop="50dp"
+                android:layout_width="325dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="Meal Name:" />
+
+            <EditText
+                android:id="@+id/editTime"
+                android:layout_marginTop="50dp"
+                android:layout_width="325dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="Meal Time:" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:text="Add Ingredients"
+                />
+
+            <TableLayout
+                android:id="@+id/ingTable"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_height="wrap_content">
+
+                <TableRow android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/border"
+                    xmlns:android="http://schemas.android.com/apk/res/android">
+
+                    <EditText
+                        android:layout_marginStart="2dp"
+                        android:layout_width="wrap_content"
+                        android:layout_weight=".5"
+                        android:layout_height="60dp"
+                        android:inputType="text"
+                        android:background="@null"
+                        android:textSize="12sp"
+                        android:hint="Name" />
+
+                    <EditText
+                        android:layout_marginStart="3dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:inputType="numberDecimal"
+                        android:textSize="12sp"
+                        android:layout_weight=".1"
+                        android:background="@null"
+                        android:hint="Qty" />
+
+                    <Spinner
+                        android:layout_marginStart="3dp"
+                        android:id="@+id/spinner1"
+                        android:layout_width="wrap_content"
+                        android:background="@null"
+                        android:layout_weight=".3"
+                        android:layout_height="60dp" />
+
+                    <Spinner
+                        android:layout_marginStart="5dp"
+                        android:id="@+id/spinner2"
+                        android:layout_weight=".3"
+                        android:background="@null"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:layout_weight=".5"
+                        android:textSize="16sp"
+                        android:onClick="removeRow"
+                        android:text="-"/>
+
+                    <Button
+                        android:layout_weight=".5"
+                        android:textSize="16sp"
+                        android:onClick="addRow"
+                        android:text="+"/>
+
+                </TableRow>
+
+
+
+            </TableLayout>
+
+
+
+            <EditText
+                android:id="@+id/editRecipe"
+                android:layout_marginTop="50dp"
+                android:layout_width="wrap_content"
+                android:minWidth="325dp"
+                android:minHeight="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:hint="Meal Recipe:" />
+
+            <EditText
+                android:id="@+id/editNotes"
+                android:layout_marginTop="50dp"
+                android:layout_width="325dp"
+                android:minHeight="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:hint="Meal Notes:" />
+
+            <EditText
+                android:id="@+id/editLink"
+                android:layout_marginTop="50dp"
+                android:layout_width="325dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:inputType="textUri"
+                android:hint="Video Link:" />
+
+
+
+            <Button
+                android:id="@+id/button"
+                android:layout_marginTop="50dp"
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:onClick="updateMeal"
+                android:text="Update Meal" />
+
+        </GridLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

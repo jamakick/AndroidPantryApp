@@ -97,5 +97,22 @@ public class ViewGroceryItem extends AppCompatActivity {
 
     }
 
+    public void editGroceryItem (View v) {
+
+        String id = null;
+
+        Bundle myData = getIntent().getExtras();
+        if (myData != null ) {
+            id = myData.getString(KEY_ITM);
+        }
+
+        Intent intent1 = new Intent(getApplicationContext(), EditGroceryItem.class);
+
+        intent1.putExtra(KEY_ITM, id);
+
+        startActivity(intent1);
+
+    }
+
 
 }

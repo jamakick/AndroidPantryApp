@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ViewMeal extends AppCompatActivity {
@@ -58,10 +59,6 @@ public class ViewMeal extends AppCompatActivity {
         //call the findmeal function from our handler on our id
         MealItem item1 = handler.findMeal(Integer.parseInt(id));
 
-//        Toast.makeText(this, item1.toString(), Toast.LENGTH_LONG).show();
-
-//        Toast.makeText(this, Integer.toString(id), Toast.LENGTH_LONG).show();
-//
         //replace the text in our views with the proper content
         TextView tv1 = findViewById(R.id.nameView);
         TextView tv2 = findViewById(R.id.timeView);
@@ -70,9 +67,26 @@ public class ViewMeal extends AppCompatActivity {
         TextView tv5 = findViewById(R.id.descView);
         tv1.setText(item1.getMealName());
         tv2.setText(item1.getMealTime());
-        tv3.setText(item1.getMealIngredients());
         tv4.setText(item1.getMealRecipe());
         tv5.setText(item1.getMealNote());
+
+
+        ArrayList<PantryItem> ings = item1.getMealIngredients();
+
+        String ingString = "";
+
+        int i;
+
+        for (i = 0; i < ings.size(); i++) {
+            ingString += ings.get(i).getPitemName() + " ";
+            ingString += ings.get(i).getPitemQty() + " ";
+            ingString += ings.get(i).getPitemQtyName() + " ";
+            ingString += ings.get(i).getPitemCtg() + " \n";
+
+        }
+
+        tv3.setText(ingString);
+
 
         //create our string link
         final String link = item1.getMealVidLink();
@@ -87,7 +101,12 @@ public class ViewMeal extends AppCompatActivity {
                 //start a new activity using the youtube app on the phone and play our link
                 //I would like to embed this in the viewmeal activity rather than opening the youtube app
                 //but I am unsure if I am allowed to use something like the youtube player api
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(link)));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(ViewMeal.this, "The link is not valid", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -112,6 +131,23 @@ public class ViewMeal extends AppCompatActivity {
         Intent intent1 = new Intent(this, MealPlanActivity.class);
 
         intent1.addFlags(flag1);
+
+        startActivity(intent1);
+
+    }
+
+    public void editMeal (View v) {
+
+        String id = null;
+
+        Bundle myData = getIntent().getExtras();
+        if (myData != null ) {
+            id = myData.getString(KEY_ITM);
+        }
+
+        Intent intent1 = new Intent(getApplicationContext(), EditMealItem.class);
+
+        intent1.putExtra(KEY_ITM, id);
 
         startActivity(intent1);
 

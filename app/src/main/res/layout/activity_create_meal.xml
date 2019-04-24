@@ -56,8 +56,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Meal Name:" />
+        android:inputType="text"
+        android:hint="Meal Name:" />
 
         <EditText
             android:id="@+id/editTime"
@@ -66,19 +66,93 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Meal Time:" />
+            android:inputType="text"
+            android:hint="Meal Time:" />
 
-        <EditText
-            android:id="@+id/editIngredients"
-            android:layout_marginTop="50dp"
-            android:layout_width="325dp"
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minHeight="200dp"
+            android:layout_marginTop="50dp"
             android:layout_gravity="center"
-            android:ems="10"
-            android:inputType="textMultiLine"
-            android:text="Meal Ingredients:" />
+            android:textSize="20sp"
+            android:text="Add Ingredients"
+            />
+
+        <TableLayout
+            android:id="@+id/ingTable"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_height="wrap_content">
+
+            <TableRow android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:background="@drawable/border"
+                xmlns:android="http://schemas.android.com/apk/res/android">
+
+                <EditText
+                    android:layout_marginStart="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_weight=".5"
+                    android:layout_height="60dp"
+                    android:inputType="text"
+                    android:background="@null"
+                    android:textSize="12sp"
+                    android:hint="Name" />
+
+                <EditText
+                    android:layout_marginStart="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:inputType="numberDecimal"
+                    android:textSize="12sp"
+                    android:layout_weight=".1"
+                    android:background="@null"
+                    android:hint="Qty" />
+
+                <Spinner
+                    android:layout_marginStart="3dp"
+                    android:id="@+id/spinner1"
+                    android:layout_width="wrap_content"
+                    android:background="@null"
+                    android:layout_weight=".3"
+                    android:layout_height="60dp" />
+
+                <Spinner
+                    android:layout_marginStart="5dp"
+                    android:id="@+id/spinner2"
+                    android:layout_weight=".3"
+                    android:background="@null"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:layout_weight=".5"
+                    android:textSize="16sp"
+                    android:onClick="removeRow"
+                    android:text="-"/>
+
+                <Button
+                    android:layout_weight=".5"
+                    android:textSize="16sp"
+                    android:onClick="addRow"
+                    android:text="+"/>
+
+            </TableRow>
+
+
+
+        </TableLayout>
+
+
 
     <EditText
         android:id="@+id/editRecipe"
@@ -90,7 +164,7 @@
         android:layout_gravity="center"
         android:ems="10"
         android:inputType="textMultiLine"
-        android:text="Meal Recipe:" />
+        android:hint="Meal Recipe:" />
 
         <EditText
             android:id="@+id/editNotes"
@@ -101,7 +175,7 @@
             android:layout_gravity="center"
             android:ems="10"
             android:inputType="textMultiLine"
-            android:text="Meal Notes:" />
+            android:hint="Meal Notes:" />
 
         <EditText
             android:id="@+id/editLink"
@@ -110,8 +184,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Video Link:" />
+            android:inputType="textUri"
+            android:hint="Video Link:" />
+
+        <CheckBox
+            android:id="@+id/addCheck"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center"
+            android:text="Add Ingredients to Grocery List"/>
 
 
     <Button

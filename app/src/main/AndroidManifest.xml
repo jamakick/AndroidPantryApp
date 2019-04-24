@@ -39,6 +39,7 @@
         <activity android:name=".ViewPantryItem" />
         <activity android:name=".CreateGroceryItem" />
         <activity android:name=".ViewGroceryItem" />
+        <activity android:name=".EditPantryItem" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -51,8 +52,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".MapsActivity"/>
+        <activity android:name=".MapsActivity" />
+        <activity android:name=".EditGroceryItem" />
+        <activity android:name=".EditMealItem"></activity>
     </application>
 
 </manifest>

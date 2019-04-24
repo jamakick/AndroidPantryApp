@@ -40,21 +40,58 @@ public class CreateGroceryItem extends AppCompatActivity {
     public void addItem(View v) {
 
         EditText nameEdit = findViewById(R.id.editText1);
-        String nameText = nameEdit.getText().toString();
+
+        String nameText = null;
+        try {
+            nameText = nameEdit.getText().toString();
+        } catch (Exception e) {
+            nameText = "none";
+        }
 
         EditText qtyEdit = findViewById(R.id.editText2);
-        int qtyText = Integer.parseInt(qtyEdit.getText().toString());
+
+        int qtyText = 0;
+        try {
+            qtyText = Integer.parseInt(qtyEdit.getText().toString());
+        } catch (NumberFormatException e) {
+            qtyText = 0;
+        }
 
         Spinner qtyCtg = findViewById(R.id.qtyCtg);
-        String qtyCtgText = qtyCtg.getSelectedItem().toString();
+
+        String qtyCtgText = null;
+        try {
+            qtyCtgText = qtyCtg.getSelectedItem().toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         EditText descEdit= findViewById(R.id.editText3);
-        String descText = descEdit.getText().toString();
+
+        String descText = null;
+        try {
+            descText = descEdit.getText().toString();
+        } catch (Exception e) {
+            descText = "none";
+        }
 
         Spinner ctgEdit = findViewById(R.id.spinner);
-        String ctgText = ctgEdit.getSelectedItem().toString();
 
-        PantryItem item1 = new PantryItem(nameText, qtyText, qtyCtgText, descText, ctgText);
+        String ctgText = null;
+        try {
+            ctgText = ctgEdit.getSelectedItem().toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        PantryItem item1 = null;
+        try {
+            item1 = new PantryItem(nameText, qtyText, qtyCtgText, descText, ctgText);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         PantryDBHandler handler = new PantryDBHandler(this);
 
