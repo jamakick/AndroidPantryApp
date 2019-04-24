@@ -67,6 +67,8 @@ public class MealPlanActivity extends AppCompatActivity {
         //use our drawer layout and navigation view to create our menu items and point them to their function calls
         dlayout = findViewById(R.id.drawer_layout);
 
+
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {

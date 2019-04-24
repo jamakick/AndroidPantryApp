@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".ViewPantryItem">
+    tools:context=".EditPantryItem">
 
 
     <android.support.v7.widget.Toolbar
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="View Pantry Item"
+            android:text="Edit Pantry Item"
             android:textColor="#FFFFFF"
             android:textSize="24sp" />
 
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:onClick="backToMain"
+            android:onClick="toNext"
             android:src="@drawable/ic_arrow_back_black_24dp" />
 
 
@@ -44,7 +44,7 @@
         android:orientation="horizontal"
         android:gravity="center_horizontal"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="40dp">
+        android:layout_marginBottom="20dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -52,11 +52,12 @@
             android:text="Item Name"
             android:textSize="16sp"
             android:layout_marginEnd="10dp"/>
-        <TextView
-            android:id="@+id/nameView"
+        <EditText
+            android:id="@+id/editText1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:inputType="text"
             />
 
     </LinearLayout>
@@ -74,12 +75,21 @@
             android:text="Item Quantity"
             android:textSize="16sp"
             android:layout_marginEnd="10dp"/>
-        <TextView
-            android:id="@+id/qtyView"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="75dp"
+            android:layout_marginEnd="15dp"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:inputType="numberDecimal"
             />
+
+        <Spinner
+            android:id="@+id/qtyCtg"
+            android:layout_width="75dp"
+            android:layout_gravity="center"
+            android:background="@drawable/border"
+            android:layout_height="40dp" />
 
     </LinearLayout>
 
@@ -93,12 +103,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginEnd="10dp"
             android:text="Notes"
             android:textSize="16sp" />
-        <TextView
-            android:id="@+id/descView"
+        <EditText
+            android:id="@+id/editText3"
+            android:inputType="textMultiLine"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:ems="10"
@@ -107,44 +117,29 @@
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="20dp"
-        android:gravity="center_horizontal">
+        android:text="Item Category"
+        android:layout_gravity="center"
+        />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Item Category"
-            android:textSize="16sp"
-            android:layout_marginEnd="10dp"/>
-        <TextView
-            android:id="@+id/ctgView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            />
-
-    </LinearLayout>
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_marginTop="20dp"
+        android:layout_width="150dp"
+        android:layout_gravity="center"
+        android:background="@drawable/border"
+        android:layout_height="40dp" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_marginTop="20dp"
+        android:id="@+id/button"
+        android:layout_marginTop="50dp"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:text="Edit"
-        android:onClick="editItem"
-        android:layout_gravity="center"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_height="wrap_content"
-        android:text="Delete"
-        android:onClick="deleteItem"
-        android:layout_gravity="center"/>
-
+        android:onClick="updateItem"
+        android:text="Update Item" />
 
 
 </LinearLayout>

@@ -97,5 +97,22 @@ public class ViewPantryItem extends AppCompatActivity {
 
     }
 
+    public void editItem (View v) {
+
+        String id = null;
+
+        Bundle myData = getIntent().getExtras();
+        if (myData != null ) {
+            id = myData.getString(KEY_ITM);
+        }
+
+        Intent intent1 = new Intent(getApplicationContext(), EditPantryItem.class);
+
+        intent1.putExtra(KEY_ITM, id);
+
+        startActivity(intent1);
+
+    }
+
 
 }

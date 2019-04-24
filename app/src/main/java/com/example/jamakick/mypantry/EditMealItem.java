@@ -1,6 +1,7 @@
 package com.example.jamakick.mypantry;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,8 +14,9 @@ import android.widget.TableRow;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
-public class CreateMeal extends AppCompatActivity {
+public class EditMealItem extends AppCompatActivity {
 
     //reorder flag
     private static final int flag1 = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
@@ -24,12 +26,19 @@ public class CreateMeal extends AppCompatActivity {
     ArrayAdapter<CharSequence> catAdapter;
     ArrayAdapter<CharSequence> qtyAdapter;
 
-    //oncreate we only set the view
+    private String KEY_ITM = "item";
+
+
+    CheckBox addCheck;
+    EditText nameEdit;
+    EditText timeEdit;
+
+    int mealID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_meal);
-
+        setContentView(R.layout.activity_edit_meal_item);
         ingTable = findViewById(R.id.ingTable);
 
         Spinner spinner1 = findViewById(R.id.spinner1);
@@ -46,6 +55,158 @@ public class CreateMeal extends AppCompatActivity {
 
         spinner1.setAdapter(qtyAdapter);
         spinner2.setAdapter(catAdapter);
+
+        //invoke our dbhandler
+        PantryDBHandler handler = new PantryDBHandler(this);
+
+        String id = null;
+
+        Bundle myData = getIntent().getExtras();
+        if (myData != null ) {
+            id = myData.getString(KEY_ITM);
+        }
+
+        MealItem findItem = null;
+        try {
+            findItem = handler.findMeal(Integer.parseInt(id));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            mealID = findItem.getMealID();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        nameEdit = findViewById(R.id.editName);
+
+        String mname = null;
+        try {
+            mname = findItem.getMealName();
+        } catch (Exception e) {
+            mname = "none";
+        }
+
+        nameEdit.setText(mname);
+
+        timeEdit = findViewById(R.id.editTime);
+
+        String mtime = null;
+        try {
+            mtime = findItem.getMealTime();
+        } catch (Exception e) {
+            mtime = "none";
+        }
+
+        timeEdit.setText(mtime);
+
+        ArrayList<PantryItem> mingredients = null;
+        try {
+            mingredients = findItem.getMealIngredients();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        int ingSize = mingredients.size();
+
+        int i;
+
+        for (i = 0; i < ingSize; i++) {
+
+            addRow();
+
+            TableRow row = (TableRow) ingTable.getChildAt(i);
+
+            EditText nameView = (EditText) row.getChildAt(0);
+            EditText qtyView = (EditText) row.getChildAt(1);
+            Spinner qtySpin = (Spinner) row.getChildAt(2);
+            Spinner ctgSpin = (Spinner) row.getChildAt(3);
+
+            try {
+                nameView.setText(mingredients.get(i).getPitemName());
+                qtyView.setText(Integer.toString(mingredients.get(i).getPitemQty()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                String qtyCtgText = mingredients.get(i).getPitemQtyName();
+                String[] ctgs = getResources().getStringArray(R.array.qtyCategories);
+                qtySpin.setSelection(Arrays.asList(ctgs).indexOf(qtyCtgText));
+            } catch (Resources.NotFoundException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                String ctgText = mingredients.get(i).getPitemCtg();
+                String[] ctgs2 = getResources().getStringArray(R.array.categories);
+                ctgSpin.setSelection(Arrays.asList(ctgs2).indexOf(ctgText));
+            } catch (Resources.NotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
+        EditText recipeEdit= findViewById(R.id.editRecipe);
+
+        String mrecipe = null;
+        try {
+            mrecipe = findItem.getMealRecipe();
+        } catch (Exception e) {
+            mrecipe = "none";
+        }
+
+        recipeEdit.setText(mrecipe);
+
+        EditText noteEdit = findViewById(R.id.editNotes);
+
+        String mnotes = null;
+        try {
+            mnotes = findItem.getMealNote();
+        } catch (Exception e) {
+            mnotes = "none";
+        }
+
+        noteEdit.setText(mnotes);
+
+        EditText linkEdit= findViewById(R.id.editLink);
+
+        String mlink = null;
+        try {
+            mlink = findItem.getMealVidLink();
+        } catch (Exception e) {
+            mlink = "";
+        }
+
+        linkEdit.setText(mlink);
+
+    }
+
+    public void addRow() {
+
+        TableRow row = (TableRow) getLayoutInflater().inflate(R.layout.ingredient_row, ingTable, false);
+        Spinner spinner1 = (Spinner) row.getVirtualChildAt(2);
+        Spinner spinner2 = (Spinner) row.getVirtualChildAt(3);
+
+        spinner1.setAdapter(qtyAdapter);
+        spinner2.setAdapter(catAdapter);
+
+        if (ingTable.getChildCount() <= 20) {
+
+            try {
+                ingTable.addView(row, ingTable.getChildCount() - 1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        else {
+            Toast.makeText(this, "Max number of Ingredients is 20", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
     public void addRow(View v) {
@@ -86,14 +247,11 @@ public class CreateMeal extends AppCompatActivity {
     }
 
     //add meal method called when add meal button pressed
-    public void addMeal(View v) {
-
-        CheckBox addCheck = findViewById(R.id.addCheck);
+    public void updateMeal(View v) {
 
         //find our editviews and put their contents into string variables
 
-        EditText nameEdit = findViewById(R.id.editName);
-
+        nameEdit = findViewById(R.id.editName);
         String mname = null;
         try {
             mname = nameEdit.getText().toString();
@@ -101,8 +259,7 @@ public class CreateMeal extends AppCompatActivity {
             mname = "none";
         }
 
-        EditText timeEdit = findViewById(R.id.editTime);
-
+        timeEdit = findViewById(R.id.editTime);
         String mtime = null;
         try {
             mtime = timeEdit.getText().toString();
@@ -134,7 +291,6 @@ public class CreateMeal extends AppCompatActivity {
                 name = "none";
             }
 
-
             int qty = 0;
             try {
                 qty = Integer.parseInt(qtyView.getText().toString());
@@ -142,11 +298,19 @@ public class CreateMeal extends AppCompatActivity {
                 qty = 0;
             }
 
+            String qtyName = null;
+            try {
+                qtyName = qtySpin.getSelectedItem().toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-            String qtyName = qtySpin.getSelectedItem().toString();
-
-            String ctg = ctgSpin.getSelectedItem().toString();
-
+            String ctg = null;
+            try {
+                ctg = ctgSpin.getSelectedItem().toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             PantryItem item = null;
             try {
@@ -161,7 +325,6 @@ public class CreateMeal extends AppCompatActivity {
 
 
         EditText recipeEdit= findViewById(R.id.editRecipe);
-
         String mrecipe = null;
         try {
             mrecipe = recipeEdit.getText().toString();
@@ -170,7 +333,6 @@ public class CreateMeal extends AppCompatActivity {
         }
 
         EditText noteEdit = findViewById(R.id.editNotes);
-
         String mnotes = null;
         try {
             mnotes = noteEdit.getText().toString();
@@ -179,7 +341,6 @@ public class CreateMeal extends AppCompatActivity {
         }
 
         EditText linkEdit= findViewById(R.id.editLink);
-
         String mlink = null;
         try {
             mlink = linkEdit.getText().toString();
@@ -191,7 +352,7 @@ public class CreateMeal extends AppCompatActivity {
         //create a new meal item with these variables
         MealItem item1 = null;
         try {
-            item1 = new MealItem(mname, mtime, mingredients, mrecipe, mnotes, mlink);
+            item1 = new MealItem(mealID, mname, mtime, mingredients, mrecipe, mnotes, mlink);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -200,10 +361,14 @@ public class CreateMeal extends AppCompatActivity {
         PantryDBHandler handler = new PantryDBHandler(this);
 
         //use our addmeal method to add our meal to our database
-        handler.addMeal(item1, addCheck.isChecked());
+        try {
+            handler.updateMeal(item1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         //toast back to the user that it was successfully added
-        Toast.makeText(this, mname + " was added to the Meal Plan", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, mname + " was updated", Toast.LENGTH_SHORT).show();
 
 
 //        Toast.makeText(this, nameText, Toast.LENGTH_SHORT).show();

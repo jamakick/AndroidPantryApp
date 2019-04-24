@@ -28,6 +28,10 @@ public class PantryItem {
         pitemCtg = ctg;
     }
 
+    public PantryItem () {
+
+    }
+
     @Override
     //override our to string method to print out a little nicer
     public String toString() {
